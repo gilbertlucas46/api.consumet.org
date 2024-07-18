@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/consumet/consumet.ts.git"
+        "url": "git+https://github.com/gilbertlucas46/blablablu.git"
     },
     "author": "prince-ao <princead@tutanota.com>",
     "license": "MIT",
@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/consumet/consumet.ts#readme",
     "dependencies": {
-        "@consumet/extensions": "github:consumet/consumet.ts",
+        "@consumet/extensions": "https://github.com/gilbertlucas46/blablablu.git",
         "@fastify/cors": "^8.2.0",
         "@types/fastify-cors": "^2.1.0",
         "@types/node": "^18.11.17",

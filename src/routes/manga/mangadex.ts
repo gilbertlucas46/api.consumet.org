@@ -55,6 +55,43 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       }
     },
   );
+
+  fastify.get('/random-anime', async (request: FastifyRequest, reply: FastifyReply) => {
+    const manga = mangadex.fetchRandom();
+
+    const res = await manga.catch((err) => {
+      return reply.status(404).send({ message: 'Anime not found' });
+    });
+    reply.status(200).send(res);
+  });
+
+  fastify.get('/recently-added', async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const page = (request.query as { page: number }).page;
+
+    const res = await mangadex.fetchRecentlyAdded(page);
+
+    reply.status(200).send(res);
+  });
+
+  fastify.get('/latest-updates', async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const page = (request.query as { page: number }).page;
+
+    const res = await mangadex.fetchLatestUpdates(page);
+
+    reply.status(200).send(res);
+  });
+
+  fastify.get('/popular', async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const page = (request.query as { page: number }).page;
+
+    const res = await mangadex.fetchPopular(page);
+
+    reply.status(200).send(res);
+  });
+
 };
 
 export default routes;
