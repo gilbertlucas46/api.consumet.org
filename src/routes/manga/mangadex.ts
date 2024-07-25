@@ -23,6 +23,17 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     reply.status(200).send(res);
   });
 
+  fastify.get('/tag/:tagId', async (request: FastifyRequest, reply: FastifyReply) => {
+    const tag = (request.query as { tag: string }).tag;
+    const page = (request.query as { page: number }).page;
+
+    const res = await mangadex.fetchByTag(page, 20, tag);
+
+    reply.status(200).send(res);
+  });
+
+  
+
   fastify.get('/info/:id', async (request: FastifyRequest, reply: FastifyReply) => {
     const id = decodeURIComponent((request.params as { id: string }).id);
 
