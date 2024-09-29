@@ -9,7 +9,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     rp.status(200).send({
       intro:
         "Welcome to the flixhq provider: check out the provider's website @ https://flixhq.to/",
-      routes: ['/:query', '/info', '/watch'],
+      routes: ['/:query', '/info', '/watch', '/popular'],
       documentation: 'https://docs.consumet.org/#tag/flixhq',
     });
   });
@@ -65,6 +65,18 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
         .send({ message: 'Something went wrong. Please try again later.' });
     }
   });
+
+  fastify.get("/popular", async (request: FastifyRequest, reply: FastifyReply) => {
+    const page = (request.query as { page: number }).page;
+    try {
+      const res = await dramacool.fetchPopular(page ? page : 1);
+      reply.status(200).send(res);
+    } catch (err) {
+      reply
+        .status(500)
+        .send({ message: 'Something went wrong. Please try again later.' });
+    }
+  })
 };
 
 export default routes;
